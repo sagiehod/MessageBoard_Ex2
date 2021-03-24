@@ -53,10 +53,8 @@ void Board::show()
 
 void Board::initBoard(unsigned rowSize, unsigned colSize)
 {
-	_board.resize(rowSize);
-	for(int i = 0; i < rowSize; ++i){
-		_board[i].resize(colSize);
-	}
+	_board.clear();
+	_board.resize(rowSize, Columns (colSize));
 }
 
 bool Board::isOutOfBoard(unsigned currRow, unsigned currCol) const
@@ -88,11 +86,11 @@ void Board::generateBoard()
 	// resize the board if needed
 	if (boardSize > _currentBoardSize)
 	{
-		initBoard(rowLength, columnLength);
-		drawEmptyBoard();
 		_currentBoardRowSize = rowLength;
 		_currentBoardColSize = columnLength;
 		_currentBoardSize = _currentBoardRowSize * _currentBoardColSize;
+		initBoard(rowLength, columnLength);
+		drawEmptyBoard();
 	}
 
 	for(const auto& currMessage : _messages)
@@ -120,7 +118,6 @@ void Board::hangMessage(const Message& message)
 	}
 }
 
-// TODO change according to later given format requirements
 void Board::updateEdges(unsigned int row, unsigned int column, Direction d, unsigned length)
 {
 	// if first message, define the min, max rows/cols values according to this message
@@ -148,6 +145,12 @@ void Board::updateEdges(unsigned int row, unsigned int column, Direction d, unsi
 	}
 	if (column < _minColumn){
 		_minColumn = column;
+	}
+	if(row > _maxRow){
+		_maxRow = row;
+	}
+	if(column > _maxColumn){
+		_maxColumn = column;
 	}
 	if (d == Direction::Vertical && (row + length - 1) > _maxRow){
 		_maxRow = (row + length - 1);

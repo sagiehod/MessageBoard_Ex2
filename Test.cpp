@@ -25,25 +25,11 @@ TEST_CASE("checks  post and read ")
 
     CHECK_NOTHROW(b.post(0, 0, Direction::Horizontal, "hello"));
     CHECK_NOTHROW(b.post(0, 0, Direction::Vertical, "HELLO"));
-      CHECK(b.read(0, 0, Direction::Horizontal, 5) == "Hello");
+     CHECK(b.read(0, 0, Direction::Horizontal, 5) == "Hello");
  }
 
-TEST_CASE("Overwriting letters")
-{
-    Board b;
-    // CHECK_NOTHROW(b.post(0, 0, Direction::Horizontal, "Check"));
-    // CHECK_THROWS(b.read(0, 0, Direction::Horizontal, 0));
 
-    CHECK_NOTHROW(b.post(10, 5, Direction::Horizontal, "sagie"));
-    CHECK_NOTHROW(b.post(10, 6, Direction::Horizontal, "hod"));
-    CHECK(b.read(10, 5, Direction::Horizontal, 5) == "shode");
-
-    CHECK_NOTHROW(b.post(0, 1, Direction::Vertical, "hod"));
-    CHECK(b.read(0, 1, Direction::Horizontal, 3) == "h__");
-
-}
-
-TEST_CASE("Overwriting letters 1 "){
+TEST_CASE(" checking Overwriting letters  "){
     Board b;
     b.post(0, 0, Direction::Horizontal, "ssssssss");
     CHECK(b.read(0, 0, Direction::Horizontal, 8) == "ssssssss");
@@ -57,9 +43,8 @@ TEST_CASE("Overwriting letters 1 "){
     CHECK(b.read(0, 0, Direction::Horizontal, 8) == "agisssss");
     b.post(0, 3, Direction::Vertical, "eeeeeeee");
     CHECK(b.read(0, 0, Direction::Horizontal, 8) == "agiessss");
-   ;
+   
 }
-
 
 TEST_CASE( "checking length 0 -empty board")
 {
@@ -77,7 +62,33 @@ TEST_CASE( "checking length 0 -empty board")
     CHECK(b.read(1, 6, Direction::Horizontal, 9) == string("_________"));
     CHECK(b.read(5, 7, Direction::Vertical, 9) == string("_________"));
 }
-TEST_CASE("Unusual")
+
+TEST_CASE(" Checking strings and overriding text")
+{
+    Board b;
+
+    b.post(0, 0, Direction::Horizontal, "Sagie");
+	b.post(1, 0, Direction::Vertical, "hod");
+    CHECK(b.read(0, 0, Direction::Horizontal, 5) + " "
+    + b.read(1, 0, Direction::Vertical, 3) == "Sagie hod");
+   
+//Sagie hod  
+//0: sagie
+//1: h____
+//2: o____
+//3: d____
+
+} 
+
+TEST_CASE("  row and coulmn- negative "){
+    Board b;
+    
+    CHECK_NOTHROW(b.post(-2, -1, Direction::Horizontal, "ssss"));
+    CHECK_NOTHROW(b.post(-1, 3, Direction::Horizontal, "ssss"));
+    CHECK_NOTHROW(b.post(0, -1, Direction::Horizontal, "ssss"));
+}
+
+TEST_CASE("Unusual and bad invaild")
 {
     Board b;
     CHECK_NOTHROW(b.post(12, 12, Direction::Horizontal, "*"));
@@ -87,3 +98,6 @@ TEST_CASE("Unusual")
     CHECK_NOTHROW(b.post(30, 5, Direction::Vertical, "1325%"));
     CHECK(b.read(30, 5, Direction::Vertical, 5) == "1325%");
 }
+
+
+
