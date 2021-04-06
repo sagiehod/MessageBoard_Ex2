@@ -28,7 +28,7 @@ void Board::post(unsigned row, unsigned column, Direction d, const std::string& 
 std::string Board::read(unsigned r, unsigned c, Direction d, unsigned length)
 {
 	std::string strToReturn;
-	auto horizontal = (d == Direction::Horizontal) ? 1 : 0;
+	unsigned int horizontal = (d == Direction::Horizontal) ? 1 : 0;
 	generateBoard();
 
 	// read each character from the board.

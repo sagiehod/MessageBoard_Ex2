@@ -35,9 +35,9 @@ int main() {
 
 	for (EVER)
 	{
-        auto messageRow = (rand() % MAX_ROW);
-        auto messageCol = (rand() % MAX_COL);
-        board.post(messageRow, messageCol, Direction::Vertical, "hello");
+        unsigned int messageRow = (rand() % MAX_ROW);
+         unsigned int messageCol = (rand() % MAX_COL);
+        board.post( messageRow, messageCol, Direction::Vertical, "hello");
         
 		colorNum = (rand() % MAX_COLOR_NUM);
         cout << colors[colorNum];

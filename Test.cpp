@@ -80,7 +80,7 @@ TEST_CASE(" Checking strings and overriding text")
 
 } 
 
-TEST_CASE("  row and coulmn- negative "){
+TEST_CASE(" - row and coulmn"){
     Board b;
     
     CHECK_NOTHROW(b.post(-2, -1, Direction::Horizontal, "ssss"));
